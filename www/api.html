@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Instant Page Messer</title>
+        <link rel="stylesheet" href="./styles/instant_page_messer.css">
+        <script src="./scripts/instant_page_messer.js"></script>
+    </head>
+
+    <body>
+        <header>
+            <h1><cite>Instant Page Messer</cite></h1>
+            <h2>Programmin Interface</h2>
+            <blockquote>The most convenient and reliable way to turn any web page <br />into absurd chaos.</blockquote>
+        </header>
+
+        <h3>The heck</h3>
+        <p>
+            Instant Page Messer let you plug custom effects to be possibly applied to pages as any build-in Instant Page Messer effects.
+        </p>
+        <p>
+            Instant Page Messer also provide useful pre-computed values to be used when programming such plugin, so they don't have to be computed again by each plugin.
+        </p>
+        <h3>How to</h3>
+        <h4>Building a custom plugable effect for Instant Page Messer</h4>
+        <h5>Minimal requirements</h5>
+        <p>
+            Any method (aka Javascript "function") that returns a booleanish value is a valid plugable effect for Instant Page Messer.
+        </p>
+        <p>
+            This booleanish value is used by Instant Page Messer to decide wether to call this method again as next animation frame or not. Truy values are for calling again; falsy are for not calling again. In all cases, Instant Page Messer may call a pluged effect anytime the user request messing with the displayed page.
+        </p>
+        <p>
+            This let programmers program one shot effects by always returning a falsy value. It also let them program animations that stop only under certain conditions.
+        </p>
+        <p></p>
+        <h5></h5>
+        <h4>Plug a custom effect to Instant Page Messer</h4>
+        <p>
+            Custom effect plugin is achieved by calling <code>InstantPageMesser.plug()</code> with an animation method (JavaScript "function") as only parameter.
+        </p>
+        <p>
+            Any JavaScript "function" is an animation method for Instant Page Messer as long as it returns <code>true</code> to run again and <code>false</code> to definitely stop.
+        </p>
+        <ul>
+            <li>It return</li>
+        </ul>
+    </body>
+
+</html>

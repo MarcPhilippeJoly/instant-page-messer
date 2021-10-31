@@ -1,0 +1,17 @@
+#whereToRain {
+    position: relative;
+    background: skyblue;
+    height: 400px;
+    width: 100%;
+    overflow: hidden ;
+}
+
+.drop {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 5px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgb(0, 127, 255, 0.5);
+}
