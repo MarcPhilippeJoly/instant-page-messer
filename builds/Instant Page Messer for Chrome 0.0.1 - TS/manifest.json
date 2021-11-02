@@ -1,0 +1,34 @@
+{
+    "name": "Instant Page Messer",
+    "description": "The most convenient and reliable way to turn any web page into absurd chaos.",
+    "version": "0.0.1",
+    "manifest_version": 3,
+    "homepage_url": "http://www.instantpagemesser.com",
+    "icons": {
+        "16": "/icons/monkey_16.png",
+        "32": "/icons/monkey_32.png",
+        "48": "/icons/monkey_48.png",
+        "128": "/icons/monkey_128.png"
+    },
+    "background": {
+        "service_worker": "/scripts/worker.js",
+        "type": "module"
+    },
+    "action": {
+        "default_icon": {
+            "16": "/icons/monkey_16.png",
+            "32": "/icons/monkey_32.png",
+            "48": "/icons/monkey_48.png",
+            "128": "/icons/monkey_128.png"
+        },
+        "default_title": "Click me to mess with this page."
+    },
+    "options_page": "options.html",
+    "permissions": [
+        "storage",
+        "activeTab",
+        "tabs",
+        "scripting"
+    ],
+    "host_permissions": []
+}

@@ -1,0 +1,15 @@
+{
+  "name": "instant-page-messer-typescript-test",
+  "version": "0.0.2",
+  "description": "",
+  "main": "./src/messer.ts",
+  "scripts": {
+    "dev": "tsc",
+    "build": "tsc --outDir ./build"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^2.0.14"
+  }
+}
