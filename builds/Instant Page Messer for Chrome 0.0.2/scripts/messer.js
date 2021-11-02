@@ -1,33 +1,34 @@
-/*
-    Instant Page Messer
-    Marc Philippe Joly
-    2021
+/**
+ * Author: Marc Philippe Joly
+ * Created: 2021-10-18
 */
 
-
-/***************/
-/* PARAMS HERE */
-/***************/
+//=======
+// PARAMS
+//=======
 
 // degree of messing
 const degOfM = 0.5; // 0 makes messing invisible, 1 makes total mess. 
 const degOfM2 = degOfM ** 2;
 
-//*********************
-// DEV'S COMFORT THINGS 
-//*********************
 
-//***************************************************************************
-// Messing with the dev environment first, because so many things are missing
+//==========
+// UTILITIES
+//==========
 
-// to be able to us forEach on objects returned by quey selectors like if they where arrays
-// thanks to Florian Margaine
+//-----------------------------------
+// Messing with dev environment first
+// because so many things are missing
+
+//---------------------------------------
+// Giving NodeList and HTMLCollections some Arrays' methods
+// thanks to Florian Margaine for this tip
 ['forEach', 'map', 'filter', 'reduce', 'reduceRight', 'every', 'some'].forEach(
     function (p) {
         NodeList.prototype[p] = HTMLCollection.prototype[p] = Array.prototype[p];
     });
 
-// ********************
+// --------------------
 // Randomness utilities
 
 // sugar for Math.random, 'cause I use it a lot
@@ -45,7 +46,21 @@ function rndO255() {
     return rnd255() - rnd255();
 }
 
-//********************
+
+//-------------------------------------
+// Picking an array's element at random
+function randomValueFrom(someIndexedArrayOrAlike) {
+    let result = someIndexedArrayOrAlike[Math.floor(rnd() * someIndexedArrayOrAlike.length)];
+    console.log(`calling randomValueFrom() with parameter:`);
+    console.log(someIndexedArrayOrAlike);
+    console.log(`randomValueFrom() returning:`);
+    console.log(result);
+
+    return result;
+}
+
+
+//--------------------
 // Formats utilitities
 
 function to8bits(n) {
@@ -70,9 +85,10 @@ function ArrayToHTMLRGBa(components) {
 }
 
 
-//**************************
+
+//==========================
 // GENERIC MESSING FUNCTIONS 
-//**************************
+//==========================
 
 /* messing with values */
 function messing01(value) {
@@ -105,38 +121,44 @@ function messingWithInks(HTMLInk) {
 }
 
 
-//****************
+//================
 // MESSING EFFECTS
-//****************
+//================
 
-messingEffects = {};
 
-messingEffects.blobEffect = function () {
+// Listing all content elements that could take effects
+let elements = document.body.querySelectorAll(':not(script):not(style):not(brw):not(window)');
+console.log(elements);
+//const numberOfAvailableElements = Object.keys(elements).length;
 
-}
+
+
+
+//-----------------------------
+// messing effects' definitions
 
 /* Messing up with Background color  */
-function messWithBgColor(element) {
+messingWithBgColor = (element) => {
     let currentInk = window.getComputedStyle(element).backgroundColor;
     let messedInk = messingWithInks(currentInk);
     element.style.backgroundColor = messedInk;
 }
 
 /* Messing up with colors */
-function messWithColor(element) {
+messingWithColor = (element) => {
     let currentInk = window.getComputedStyle(element, null).color;
     let messedInk = messingWithInks(currentInk);
     element.style.color = messedInk;
 }
 
 /* Messing up with sharpness (bluring) */
-function messWithSharpness(element) {
+messWithSharpness = (element) => {
     let aBlurFilter = `blur(${Math.max(0, 8 * rndO() * degOfM2)}px)`;
     element.style.filter = element.style.filter + ' ' + aBlurFilter;
 }
 
 /* messing up with margins */
-function messWithMargins(element) {
+messWithMargins = (element) => {
     let currentStyle = window.getComputedStyle(element);
     let horizontalFactor = parseFloat(currentStyle.width) / 8;
     let verticalFactor = parseFloat(currentStyle.height) / 8;
@@ -151,7 +173,7 @@ function messWithMargins(element) {
 }
 
 /* messing up with paddings */
-function messWithPaddings(element) {
+messWithPaddings = (element) => {
     let currentStyle = window.getComputedStyle(element);
     let horizontalFactor = parseFloat(currentStyle.width) / 8;
     let verticalFactor = parseFloat(currentStyle.height) / 8;
@@ -168,7 +190,7 @@ function messWithPaddings(element) {
 }
 
 /* messing up with border radii */
-function messWithBorderRadii(element) {
+messWithBorderRadii = (element) => {
     const currentStyle = window.getComputedStyle(element);
     let currentBorderRadii = [];
     currentBorderRadii[0] = currentStyle.borderTopLeftRadius.split('/');
@@ -186,14 +208,15 @@ function messWithBorderRadii(element) {
 
 
 /* messing with 3D rotation */
-function messWith3DRotation(element) {
+messWith3DRotation = (element) => {
     let aRotation = (`rotate3d(${rndO() * degOfM}, ${rndO() * degOfM}, ${rndO() * degOfM}, ${rndO() * degOfM / 80}turn)`);
     element.style.transform += ' ' + aRotation;
     element.style.transformStyle = 'flat';
 }
 
 /* messing with 3D transform */
-function messWith3DTransforms(element) {
+let perspectived = false;
+messWith3DTransforms = (element) => {
     let degOfM50th = degOfM / 50;
     let aMatrix = `matrix3d(
         ${rndO() * degOfM50th},${rndO() * degOfM50th},0,
@@ -202,39 +225,40 @@ function messWith3DTransforms(element) {
        0,0,0,${1 + rndO() * degOfM50th}
     )`;
     element.style.transform = element.style.transform + ' ' + aMatrix;
+    if (!perspectived) {
+        // messing up with global perspective
+        document.body.style.perspective = `${Math.ceil(512 + rnd() * 512)}px`;
+        document.body.style.perspectiveOrigin = `${50 + rndO() * 50 * degOfM2}% ${50 + rndO() * 50 * degOfM2}%`;
+        perspectived = true;
+    }
 }
 
-/* List order messing */
 
-/* list type messing */
+//----------------------------------------------
+// messing effects' registration for activation
 
-/* sheep in the middle */
-
-/* add smoke */
-
-/* make physical */
-
-
-// messing up with global perspective
-document.body.style.perspective = `${Math.ceil(512 + rnd() * 512)}px`;
-document.body.style.perspectiveOrigin = `${50 + rndO() * 50 * degOfM2}% ${50 + rndO() * 50 * degOfM2}%`;
+messingEffects = [
+    () => { messingWithBgColor(randomValueFrom(elements)) },
+    () => { messingWithColor(randomValueFrom(elements)); },
+    () => { messWithSharpness(randomValueFrom(elements)) },
+    () => { messWithMargins(randomValueFrom(elements)) },
+    () => { messWithPaddings(randomValueFrom(elements)) },
+];
 
 
-//************************************
-// NOW THE BIG MESSING SHOULD HAPPEN !
+//======================
+// MAIN MESSING UP PILOT
+//======================
 
-// Listing all content elements except not-visual ones
-let elements = document.querySelectorAll(':not(script):not(style)');
-console.log(elements);
-const numberOfAvailableEffects = Object.keys(messingEffects).length;
-const numberOfEffectsToApply = Math.ceil(numberOfAvailableEffects * degOfM);
+
+// computing the number of effects to apply
+const numberOfEffectsToApply = Math.ceil((messingEffects.length + elements.length) / 2 * degOfM);
+console.log(`numberOfEffectsToApply === ${numberOfEffectsToApply}`)
 
 // Applying so much effects
 for (let step = 0; step < numberOfEffectsToApply; step++) {
-    // pick a random effect in the list of effect
-    let someEffect = elements[Math.floor(rnd() * numberOfAvailableEffects)];
-    // apply it to the page
-    
+    // pick a random effect in the list of effect and apply it
+    randomValueFrom(messingEffects)();
 }
 
 

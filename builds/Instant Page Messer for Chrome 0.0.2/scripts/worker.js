@@ -31,7 +31,7 @@ function messWithCurrentTab(tab) {
     chrome.scripting.executeScript({
         target: {
             tabId: tab.id,
-            allFrames: true
+            allFrames: false // beware: some frame have special DOM with no-element elements.
         },
         files: ["scripts/messer.js"]
         /*
