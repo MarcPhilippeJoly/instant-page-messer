@@ -243,6 +243,9 @@ messingEffects = [
     () => { messWithSharpness(randomValueFrom(elements)) },
     () => { messWithMargins(randomValueFrom(elements)) },
     () => { messWithPaddings(randomValueFrom(elements)) },
+    () => { messWithBorderRadii(randomValueFrom(elements)) },
+    /*() => { messWith3DRotation(randomValueFrom(elements)) },*/
+    () => { messWith3DTransforms(randomValueFrom(elements)) },
 ];
 
 
